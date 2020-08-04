@@ -1,38 +1,26 @@
 package com.twuc.bowling.domain;
 
+import java.util.Arrays;
+
 public class Frame {
-    private Integer firstThrow;
-    private Integer secondThrow;
+    private Integer[] scores;
 
-    public Frame() {
-    }
-
-    public Frame(Integer firstThrow, Integer secondThrow) {
-        this.firstThrow = firstThrow;
-        this.secondThrow = secondThrow;
+    public Frame(Integer ...scores) {
+        this.scores = scores;
     }
 
     @Override
     public String toString() {
         return "Frame{" +
-                "firstThrow=" + firstThrow +
-                ", secondThrow=" + secondThrow +
+                "scores=" + Arrays.toString(scores) +
                 '}';
     }
 
-    public Integer getFirstThrow() {
-        return firstThrow;
+    public Integer[] getScores() {
+        return scores;
     }
 
-    public void setFirstThrow(Integer firstThrow) {
-        this.firstThrow = firstThrow;
-    }
-
-    public Integer getSecondThrow() {
-        return secondThrow;
-    }
-
-    public void setSecondThrow(Integer secondThrow) {
-        this.secondThrow = secondThrow;
+    public void setScores(Integer[] scores) {
+        this.scores = scores;
     }
 }
