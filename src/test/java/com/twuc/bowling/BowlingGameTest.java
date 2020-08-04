@@ -65,4 +65,22 @@ public class BowlingGameTest {
         long result = 65;
         assertEquals(result, line.calculate());
     }
+
+    @Test
+    public void should_return_score_when_calculate_given_a_line_with_spare_and_strike() {
+        List<Frame> scoreTable = new ArrayList<>();
+        scoreTable.add(new Frame(1, 1));
+        scoreTable.add(new Frame(3, 7));
+        scoreTable.add(new Frame(3, 3));
+        scoreTable.add(new Frame(4, 4));
+        scoreTable.add(new Frame(5, 5));
+        scoreTable.add(new Frame(10));
+        scoreTable.add(new Frame(1, 1));
+        scoreTable.add(new Frame(2, 2));
+        scoreTable.add(new Frame(3, 3));
+        scoreTable.add(new Frame(4, 4));
+        Line line = new Line(scoreTable);
+        long result = 75;
+        assertEquals(result, line.calculate());
+    }
 }
