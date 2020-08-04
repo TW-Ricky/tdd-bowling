@@ -29,6 +29,19 @@ public class Line {
             }
             index.getAndIncrement();
         });
+        calculateStrikeExtraScore(result, strike);
+        calculateSpareExtraScore(result, spare);
+        return result.get();
+    }
+
+    private void calculateSpareExtraScore(AtomicInteger result, List<Integer> spare) {
+        spare.stream().forEach(item -> {
+            Integer extraScore = scoreTable.get(item + 1).getScores()[0];
+            result.updateAndGet(v -> v + extraScore);
+        });
+    }
+
+    private void calculateStrikeExtraScore(AtomicInteger result, List<Integer> strike) {
         strike.stream().forEach(item -> {
             Integer[] nextFrame = scoreTable.get(item + 1).getScores();
             Integer extraScore = Integer.valueOf(0);
@@ -40,11 +53,6 @@ public class Line {
             Integer finalExtraScore = extraScore;
             result.updateAndGet(v -> v + finalExtraScore);
         });
-        spare.stream().forEach(item -> {
-            Integer extraScore = scoreTable.get(item + 1).getScores()[0];
-            result.updateAndGet(v -> v + extraScore);
-        });
-        return result.get();
     }
 
 }
