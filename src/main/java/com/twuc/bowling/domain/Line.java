@@ -3,7 +3,6 @@ package com.twuc.bowling.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 public class Line {
@@ -16,21 +15,21 @@ public class Line {
     public long calculate() {
         AtomicInteger result = new AtomicInteger(0);
         AtomicInteger index = new AtomicInteger(0);
-        List<Integer> strike = new ArrayList<>();
-        List<Integer> spare = new ArrayList<>();
+        List<Integer> strikeIndex = new ArrayList<>();
+        List<Integer> spareIndex = new ArrayList<>();
         scoreTable.stream().forEach(item -> {
             Integer score = Stream.of(item.getScores()).reduce(0, (sum, it) -> sum + it);
             result.updateAndGet(v -> v + score);
             if (item.getScores().length == 1) {
-                strike.add(index.get());
+                strikeIndex.add(index.get());
             }
             if (score.equals(10) && item.getScores().length == 2) {
-                spare.add(index.get());
+                spareIndex.add(index.get());
             }
             index.getAndIncrement();
         });
-        calculateStrikeExtraScore(result, strike);
-        calculateSpareExtraScore(result, spare);
+        calculateStrikeExtraScore(result, strikeIndex);
+        calculateSpareExtraScore(result, spareIndex);
         return result.get();
     }
 
